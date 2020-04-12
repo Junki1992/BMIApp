@@ -2,6 +2,7 @@ package com.websarva.wings.android.bmiapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity() {
             val bmi = input2 / (met * met)
             val toast = Toast.makeText(applicationContext, "%,.1f".format(bmi), Toast.LENGTH_LONG)
             // 位置調整
-//            toast.setGravity(Gravity.CENTER, x, y)
+            toast.setGravity(Gravity.TOP, -350, 1100)
             toast.show()
         }
     }
