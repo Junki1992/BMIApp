@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">BMIApp</string>
+    <string name="app_name">MyBMIApp</string>
+    <string name="tv_title"></string>
 </resources>
