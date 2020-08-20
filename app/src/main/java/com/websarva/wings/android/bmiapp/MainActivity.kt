@@ -1,17 +1,19 @@
 package com.websarva.wings.android.bmiapp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.realm.Realm
+import io.realm.RealmResults
 import io.realm.Sort
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var realm: Realm
+    private lateinit var results: RealmResults<BMIList>
     private lateinit var adapter: CustomRecyclerViewAdapter
     private lateinit var layoutManager: RecyclerView.LayoutManager
 

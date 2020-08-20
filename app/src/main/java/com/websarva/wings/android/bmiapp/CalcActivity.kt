@@ -2,6 +2,7 @@ package com.websarva.wings.android.bmiapp
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +10,7 @@ import io.realm.Realm
 import io.realm.kotlin.createObject
 import io.realm.kotlin.where
 import kotlinx.android.synthetic.main.activity_calc.*
-import java.util.Date
+import java.util.*
 
 class CalcActivity : AppCompatActivity() {
 
@@ -30,6 +31,9 @@ class CalcActivity : AppCompatActivity() {
             editHeight.setText(bmiList?.height.toString())
             editWeight.setText(bmiList?.weight.toString())
             textViewBMI.text = bmiList?.bmi.toString()
+            deleteButton.visibility = View.VISIBLE
+        } else {
+            deleteButton.visibility = View.INVISIBLE
         }
 
         calcButton.setOnClickListener {
@@ -64,7 +68,13 @@ class CalcActivity : AppCompatActivity() {
                     setNegativeButton("いいえ") {dialog, which ->}
                         show()
                 }
+            } else {
+                finish()
             }
+        }
+
+        deleteButton.setOnClickListener {
+            onDelete()
         }
     }
 
@@ -107,6 +117,8 @@ class CalcActivity : AppCompatActivity() {
                     bmiList.weight = weight
                     bmiList.bmi = bmi
                 }
+                Toast.makeText(applicationContext, "保存しました", Toast.LENGTH_SHORT).show()
+                finish()
             }
             //修正処理
             else -> {
@@ -117,10 +129,31 @@ class CalcActivity : AppCompatActivity() {
                     bmiList?.weight = weight
                     bmiList?.bmi = bmi
                 }
+                Toast.makeText(applicationContext, "修正しました", Toast.LENGTH_SHORT).show()
+                finish()
             }
         }
-        Toast.makeText(applicationContext, "保存しました", Toast.LENGTH_LONG).show()
-        finish()
+    }
+
+    private fun onDelete() {
+        dialog = AlertDialog.Builder(this@CalcActivity).apply {
+            setTitle("レコードの削除")
+            setMessage("選択したレコードを削除しますか？")
+            setPositiveButton("はい") { dialog, which ->
+                realm.executeTransaction {
+                    val bmiList = realm.where<BMIList>()
+                        .equalTo("id", bmiId)
+                        ?.findFirst()
+                        ?.deleteFromRealm()
+                }
+                Toast.makeText(applicationContext, "削除しました", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+            setNegativeButton("いいえ") { dialog, which ->
+                Toast.makeText(applicationContext, "中止しました", Toast.LENGTH_SHORT).show()
+            }
+            show()
+        }
     }
 
     override fun onDestroy() {

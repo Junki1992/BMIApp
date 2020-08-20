@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">MyBMIApp</string>
-    <string name="tv_title"></string>
+<!--    インテントで渡すキー-->
+<!--    <string name="intent_key_height">intent_key_height</string>-->
+<!--    <string name="intent_key_weight">intent_key_weight</string>-->
+<!--    <string name="intent_key_bmi">intent_key_bmi</string>-->
 </resources>

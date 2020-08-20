@@ -1,5 +1,6 @@
 package com.websarva.wings.android.bmiapp
 
+import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -28,5 +29,10 @@ class CustomRecyclerViewAdapter(realmResults: RealmResults<BMIList>) : RecyclerV
         holder.weightText?.text = "${bmiList?.weight.toString()}"
         holder.bmiText?.text = bmiList?.bmi.toString()
         holder.itemView.setBackgroundColor(if (position % 2 == 0) Color.LTGRAY else Color.WHITE)
+        holder.itemView.setOnClickListener {
+            val intent = Intent(it.context, CalcActivity::class.java)
+            intent.putExtra("id", bmiList?.id)
+            it.context.startActivity(intent)
+        }
     }
 }
