@@ -25,8 +25,8 @@ class CustomRecyclerViewAdapter(realmResults: RealmResults<BMIList>) : RecyclerV
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val bmiList = rResults[position]
         holder.dateText?.text = DateFormat.format("yyyy/MM/dd kk:mm", bmiList?.dateTime)
-        holder.heightText?.text = "${bmiList?.height.toString()}"
-        holder.weightText?.text = "${bmiList?.weight.toString()}"
+        holder.heightText?.text = "${bmiList?.height.toString()}"+" cm"
+        holder.weightText?.text = "${bmiList?.weight.toString()}"+" kg"
         holder.bmiText?.text = bmiList?.bmi.toString()
         holder.itemView.setBackgroundColor(if (position % 2 == 0) Color.LTGRAY else Color.WHITE)
         holder.itemView.setOnClickListener {
