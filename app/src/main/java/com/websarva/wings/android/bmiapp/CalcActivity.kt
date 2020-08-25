@@ -1,6 +1,8 @@
 package com.websarva.wings.android.bmiapp
 
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -15,6 +17,7 @@ import java.util.*
 class CalcActivity : AppCompatActivity() {
 
     private val tag = "BMIList"
+    private lateinit var bmiList: BMIList
     private lateinit var realm: Realm
     private lateinit var dialog: AlertDialog.Builder
     var bmiId: Long = 0L
@@ -32,8 +35,10 @@ class CalcActivity : AppCompatActivity() {
             editWeight.setText(bmiList?.weight.toString())
             textViewBMI.text = bmiList?.bmi.toString()
             deleteButton.visibility = View.VISIBLE
+            mailButton.visibility = View.VISIBLE
         } else {
             deleteButton.visibility = View.INVISIBLE
+            mailButton.visibility = View.INVISIBLE
         }
 
         calcButton.setOnClickListener {
@@ -71,6 +76,10 @@ class CalcActivity : AppCompatActivity() {
             } else {
                 finish()
             }
+        }
+
+        mailButton.setOnClickListener {
+            onSendMassage()
         }
 
         deleteButton.setOnClickListener {
@@ -133,6 +142,25 @@ class CalcActivity : AppCompatActivity() {
                 finish()
             }
         }
+    }
+
+    private fun onSendMassage() {
+        realm.executeTransaction {
+            bmiList = realm.where<BMIList>()
+                .equalTo("id", bmiId)
+                .findFirst()!!
+            bmiList.dateTime
+            bmiList.height
+            bmiList.weight
+            bmiList.bmi
+        }
+        val subject = getString(R.string.app_subject)
+        val text = "$bmiList"
+        val uri = Uri.fromParts("mailto", "junki.warner@me.com", null)
+        val intent = Intent(Intent.ACTION_SENDTO, uri)
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject)
+        intent.putExtra(Intent.EXTRA_TEXT, text)
+        startActivity(intent)
     }
 
     private fun onDelete() {

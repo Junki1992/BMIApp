@@ -47,8 +47,8 @@
         android:id="@+id/calcButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
         android:layout_marginBottom="182dp"
         android:text="計算"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -162,5 +162,15 @@
         app:layout_constraintBottom_toTopOf="@+id/backButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_delete" />
+
+    <ImageButton
+        android:id="@+id/mailButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:srcCompat="@android:drawable/sym_action_email" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

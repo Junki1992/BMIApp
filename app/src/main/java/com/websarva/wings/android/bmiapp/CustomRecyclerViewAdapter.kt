@@ -9,6 +9,7 @@ import io.realm.RealmResults
 import android.text.format.DateFormat
 
 class CustomRecyclerViewAdapter(realmResults: RealmResults<BMIList>) : RecyclerView.Adapter<ViewHolder>() {
+
     private val rResults: RealmResults<BMIList> = realmResults
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): ViewHolder {
